@@ -1,0 +1,148 @@
+{
+  "tools": [
+    {
+      "id": "tool-001",
+      "name": "Zillow / AirDNA Lead Viewer",
+      "shortDesc": "Cross-reference Zillow listings with AirDNA short-term rental income estimates",
+      "instructions": "1. Export leads from Zillow in CSV format\n2. Run the AirDNA scraper for target ZIP codes\n3. Paste both CSVs into the tool\n4. Use the income-to-price filter to surface high-ROI candidates\n\nTips:\n- Best for properties in tourist-adjacent markets\n- AirDNA estimates are conservative; add 15% buffer for peak season",
+      "url": "/tools/zillow-airdna-lead-viewer/index.html",
+      "videoUrl": "",
+      "category": "Real Estate Analysis",
+      "tags": ["zillow", "airdna", "short-term rental", "lead gen"],
+      "status": "active",
+      "favorite": true,
+      "resources": [
+        { "label": "AirDNA Market Data", "url": "https://www.airdna.co" },
+        { "label": "Zillow Research", "url": "https://www.zillow.com/research" }
+      ],
+      "dateAdded": "2024-11-15",
+      "dateUpdated": "2025-02-10"
+    },
+    {
+      "id": "tool-002",
+      "name": "Redfin Property Tracker",
+      "shortDesc": "Track price changes, days on market, and deal potential for target properties",
+      "instructions": "Paste Redfin search URL for your target ZIP codes. The tool will:\n- Show price reduction history\n- Flag listings over 30 DOM as potential motivated sellers\n- Calculate rough ARV based on nearby sold comps\n\nNote: Comps are pulled from last 90 days within 0.5mi radius.",
+      "url": "/tools/redfin-property-tracker/index.html",
+      "videoUrl": "",
+      "category": "Real Estate Analysis",
+      "tags": ["redfin", "comps", "ARV", "fix-and-flip"],
+      "status": "active",
+      "favorite": true,
+      "resources": [
+        { "label": "Redfin St. Joseph MO", "url": "https://www.redfin.com/city/17952/MO/Saint-Joseph" }
+      ],
+      "dateAdded": "2024-10-02",
+      "dateUpdated": "2025-01-28"
+    },
+    {
+      "id": "tool-003",
+      "name": "Restaurant Map",
+      "shortDesc": "Map and filter restaurants near target properties or neighborhoods",
+      "instructions": "Enter a zip code or neighborhood. The tool pulls nearby restaurants and scores walkability/amenities for tenant appeal.\n\nUsed for: rating neighborhood appeal in rental listings.",
+      "url": "/tools/restaurant-map/index.html",
+      "videoUrl": "",
+      "category": "Maps & Location",
+      "tags": ["maps", "restaurants", "walkability", "tenant appeal"],
+      "status": "active",
+      "favorite": false,
+      "resources": [],
+      "dateAdded": "2025-01-10",
+      "dateUpdated": "2025-01-10"
+    },
+    {
+      "id": "tool-004",
+      "name": "TickPick Ticket Analyzer",
+      "shortDesc": "Find underpriced event tickets for resale on secondary markets",
+      "instructions": "1. Paste TickPick event URL\n2. Tool compares face value vs current secondary market\n3. Score above 70 = likely profitable flip\n\nBest for: concerts, sports, comedy shows. Avoid festivals (high risk).",
+      "url": "/tools/tickpick-ticket-analyzer/index.html",
+      "videoUrl": "",
+      "category": "Ticket Flipping",
+      "tags": ["tickpick", "resale", "tickets", "arbitrage"],
+      "status": "testing",
+      "favorite": false,
+      "resources": [
+        { "label": "TickPick", "url": "https://www.tickpick.com" },
+        { "label": "StubHub Pricing", "url": "https://www.stubhub.com" }
+      ],
+      "dateAdded": "2025-03-01",
+      "dateUpdated": "2025-03-15"
+    },
+    {
+      "id": "tool-005",
+      "name": "Google Maps Storage Finder",
+      "shortDesc": "Find self-storage facilities near target areas for cost comparison",
+      "instructions": "Searches Google Maps API for storage facilities within a radius. Returns:\n- Price per sq ft estimates\n- Distance from property\n- Competitor density score\n\nUseful for evaluating storage unit investments or finding contractors storage options.",
+      "url": "/tools/google-maps-storage-finder/index.html",
+      "videoUrl": "",
+      "category": "Maps & Location",
+      "tags": ["google maps", "storage", "market research"],
+      "status": "active",
+      "favorite": false,
+      "resources": [],
+      "dateAdded": "2025-02-20",
+      "dateUpdated": "2025-02-20"
+    },
+    {
+      "id": "tool-006",
+      "name": "Southwest Low Fare Calendar Helper",
+      "shortDesc": "Quickly compare Southwest fares across date ranges for trip planning",
+      "instructions": "Enter origin, destination, and date window. Tool highlights lowest fares by day so you can book the cheapest option fast.\n\nNote: Uses publicly visible calendar prices. Does not book anything automatically.",
+      "url": "/tools/southwest-fare-calendar/index.html",
+      "videoUrl": "",
+      "category": "Travel",
+      "tags": ["southwest", "flights", "travel hacking", "low fare"],
+      "status": "archived",
+      "favorite": false,
+      "resources": [
+        { "label": "Southwest Low Fare Calendar", "url": "https://www.southwest.com/air/low-fare-calendar" }
+      ],
+      "dateAdded": "2024-09-05",
+      "dateUpdated": "2024-12-01"
+    },
+    {
+      "id": "tool-007",
+      "name": "Real Estate Lead Viewer",
+      "shortDesc": "Central view of all active leads across multiple acquisition sources",
+      "instructions": "Aggregates leads from:\n- Driving for dollars lists\n- Direct mail campaigns\n- Probate leads\n- Cold call lists\n\nImport CSV and score leads by motivation score, equity estimate, and contact status.",
+      "url": "/tools/real-estate-lead-viewer/index.html",
+      "videoUrl": "",
+      "category": "Real Estate Analysis",
+      "tags": ["leads", "CRM", "acquisitions", "pipeline"],
+      "status": "testing",
+      "favorite": true,
+      "resources": [],
+      "dateAdded": "2025-04-01",
+      "dateUpdated": "2025-05-12"
+    },
+    {
+      "id": "tool-008",
+      "name": "Hospital / Top ZIP Code Checker",
+      "shortDesc": "Identify high-demand rental ZIP codes near hospitals and employers",
+      "instructions": "Enter a city or metro area. Tool returns:\n- Top ZIP codes by hospital/healthcare employment\n- Rental vacancy rates\n- Average rent vs purchase price ratios\n\nGreat for identifying travel nurse markets or stable long-term rental zones.",
+      "url": "/tools/zip-code-checker/index.html",
+      "videoUrl": "",
+      "category": "Market Research",
+      "tags": ["zip codes", "hospitals", "rental market", "demographics"],
+      "status": "broken",
+      "favorite": false,
+      "resources": [
+        { "label": "HUD User Data", "url": "https://www.huduser.gov" }
+      ],
+      "dateAdded": "2025-01-22",
+      "dateUpdated": "2025-02-05"
+    }
+  ],
+  "categories": [
+    "Real Estate Analysis",
+    "Market Research",
+    "Maps & Location",
+    "Ticket Flipping",
+    "Travel",
+    "Utilities"
+  ],
+  "meta": {
+    "version": "1.0",
+    "exportDate": ""
+  }
+}

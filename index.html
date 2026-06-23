@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tool Hub — Next Level Properties</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">
+        <span class="logo-title">Tool Hub</span>
+        <span class="logo-sub">Next Level Properties</span>
+      </div>
+    </div>
+    <button class="sidebar-toggle-btn" id="sidebarToggle" title="Collapse sidebar">‹</button>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Views</div>
+    <a href="#" class="nav-item active" data-view="all">
+      <span class="nav-icon">◈</span> All Tools
+    </a>
+    <a href="#" class="nav-item" data-view="favorites">
+      <span class="nav-icon">★</span> Favorites
+    </a>
+    <a href="#" class="nav-item" data-view="recent">
+      <span class="nav-icon">◷</span> Recently Added
+    </a>
+
+    <div class="nav-section-label" style="margin-top:1.5rem">Categories</div>
+    <div id="categoryNav" class="category-nav"></div>
+
+    <div class="nav-section-label" style="margin-top:1.5rem">Admin</div>
+    <a href="#" class="nav-item" id="addToolBtn">
+      <span class="nav-icon">＋</span> Add Tool
+    </a>
+    <a href="#" class="nav-item" id="manageCategoriesBtn">
+      <span class="nav-icon">◧</span> Categories & Tags
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <button class="btn-ghost small" id="exportBtn" title="Export backup">↓ Export</button>
+    <button class="btn-ghost small" id="importBtn" title="Import backup">↑ Import</button>
+    <button class="theme-toggle" id="themeToggle" title="Toggle light/dark">◐</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" />
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main" id="main">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search tools, tags, categories…" class="search-input" />
+        <kbd class="search-kbd">⌘K</kbd>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <select id="statusFilter" class="filter-select">
+        <option value="">All Statuses</option>
+        <option value="active">Active</option>
+        <option value="testing">Testing</option>
+        <option value="broken">Broken</option>
+        <option value="archived">Archived</option>
+      </select>
+      <select id="sortSelect" class="filter-select">
+        <option value="name">Sort: Name</option>
+        <option value="category">Sort: Category</option>
+        <option value="updated">Sort: Last Updated</option>
+        <option value="added">Sort: Recently Added</option>
+      </select>
+      <button class="btn-primary" id="addToolBtnTop">+ New Tool</button>
+    </div>
+  </header>
+
+  <!-- STATS BAR -->
+  <section class="stats-bar" id="statsBar"></section>
+
+  <!-- TAG CHIPS -->
+  <div class="active-filters" id="activeFilters"></div>
+
+  <!-- CONTENT -->
+  <div class="content-area">
+    <div class="content-header">
+      <h2 class="content-title" id="contentTitle">All Tools</h2>
+      <div class="view-mode-btns">
+        <button class="view-btn active" id="gridViewBtn" title="Grid view">▦</button>
+        <button class="view-btn" id="listViewBtn" title="List view">≡</button>
+      </div>
+    </div>
+
+    <div class="tools-grid" id="toolsGrid"></div>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <div class="empty-icon">🔧</div>
+      <h3>No tools found</h3>
+      <p>Try a different search, or <a href="#" id="emptyAddLink">add your first tool</a>.</p>
+    </div>
+  </div>
+</main>
+
+<!-- TOOL MODAL -->
+<div class="modal-backdrop" id="toolModal" style="display:none">
+  <div class="modal modal-large">
+    <div class="modal-header">
+      <div class="modal-title-area">
+        <span class="modal-status-badge" id="modalStatus"></span>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <span class="modal-category-badge" id="modalCategory"></span>
+      </div>
+      <div class="modal-header-actions">
+        <button class="btn-icon" id="modalFavBtn" title="Toggle favorite">☆</button>
+        <button class="btn-icon" id="modalEditBtn" title="Edit tool">✎</button>
+        <button class="btn-icon modal-close" id="closeToolModal">✕</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-left">
+        <div class="detail-section">
+          <label class="detail-label">Description</label>
+          <p class="detail-text" id="modalDesc"></p>
+        </div>
+        <div class="detail-section" id="modalInstructionsSection">
+          <label class="detail-label">Instructions & Notes</label>
+          <div class="detail-notes" id="modalInstructions"></div>
+        </div>
+        <div class="detail-section" id="modalResourcesSection">
+          <label class="detail-label">Related Resources</label>
+          <div id="modalResources"></div>
+        </div>
+        <div class="detail-section">
+          <label class="detail-label">Tags</label>
+          <div class="tags-display" id="modalTags"></div>
+        </div>
+        <div class="detail-meta-row">
+          <span class="detail-meta-item">📅 Updated: <strong id="modalUpdated"></strong></span>
+          <span class="detail-meta-item">➕ Added: <strong id="modalAdded"></strong></span>
+        </div>
+      </div>
+      <div class="modal-right">
+        <div class="video-panel" id="videoPanel" style="display:none">
+          <label class="detail-label">Tutorial Video</label>
+          <div id="videoEmbed"></div>
+          <a class="btn-ghost small" id="videoOpenBtn" target="_blank" rel="noopener">↗ Open in New Tab</a>
+        </div>
+        <div class="tool-actions">
+          <a class="btn-primary large" id="modalOpenBtn" target="_blank" rel="noopener">⚡ Open Tool</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT/ADD MODAL -->
+<div class="modal-backdrop" id="editModal" style="display:none">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="editModalTitle">Add New Tool</h2>
+      <button class="btn-icon modal-close" id="closeEditModal">✕</button>
+    </div>
+    <div class="modal-body single-col">
+      <form id="toolForm" autocomplete="off">
+        <input type="hidden" id="editToolId" />
+
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label class="form-label">Tool Name <span class="required">*</span></label>
+            <input type="text" id="fName" class="form-input" placeholder="e.g. Zillow Lead Viewer" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category <span class="required">*</span></label>
+            <div class="input-with-action">
+              <select id="fCategory" class="form-input" required></select>
+              <button type="button" class="btn-ghost small" id="newCategoryInlineBtn">+ New</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Short Description</label>
+          <input type="text" id="fShortDesc" class="form-input" placeholder="One sentence about what this tool does" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Full Description / Notes</label>
+          <textarea id="fInstructions" class="form-textarea" rows="5" placeholder="How to use this tool, tips, gotchas, workflow…"></textarea>
+        </div>
+
+        <div class="form-row two-col">
+          <div class="form-group">
+            <label class="form-label">Tool URL <span class="required">*</span></label>
+            <input type="text" id="fUrl" class="form-input" placeholder="/tools/my-tool/index.html or https://…" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select id="fStatus" class="form-input">
+              <option value="active">Active</option>
+              <option value="testing">Testing</option>
+              <option value="broken">Broken</option>
+              <option value="archived">Archived</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Video / Tutorial URL</label>
+          <input type="text" id="fVideoUrl" class="form-input" placeholder="YouTube, Loom, Vimeo, Google Drive, Dropbox…" />
+          <span class="form-hint">YouTube and Vimeo will embed automatically. Others show an "Open Video" button.</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tags</label>
+          <input type="text" id="fTags" class="form-input" placeholder="Comma-separated: real estate, scraper, analysis" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Related Resources</label>
+          <textarea id="fResources" class="form-textarea" rows="3" placeholder="One per line: Label | URL&#10;e.g. Source Sheet | https://docs.google.com/…"></textarea>
+          <span class="form-hint">Format: Label | URL (one per line)</span>
+        </div>
+
+        <div class="form-row checkbox-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="fFavorite" /> ★ Mark as Favorite
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-ghost" id="cancelEditBtn">Cancel</button>
+          <button type="button" class="btn-danger" id="deleteToolBtn" style="display:none">Delete Tool</button>
+          <button type="button" class="btn-secondary" id="duplicateToolBtn" style="display:none">Duplicate</button>
+          <button type="submit" class="btn-primary">Save Tool</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORIES MODAL -->
+<div class="modal-backdrop" id="catModal" style="display:none">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2 class="modal-title">Manage Categories & Tags</h2>
+      <button class="btn-icon modal-close" id="closeCatModal">✕</button>
+    </div>
+    <div class="modal-body single-col">
+      <div class="form-group">
+        <label class="form-label">Categories</label>
+        <div id="catList" class="tag-manager-list"></div>
+        <div class="input-with-action" style="margin-top:.5rem">
+          <input type="text" id="newCatInput" class="form-input" placeholder="New category name" />
+          <button class="btn-secondary small" id="addCatBtn">Add</button>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-ghost" id="closeCatModalBtn">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-backdrop" id="confirmModal" style="display:none">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h2 class="modal-title" id="confirmTitle">Confirm Action</h2>
+    </div>
+    <div class="modal-body single-col">
+      <p id="confirmMessage" class="detail-text"></p>
+      <div class="form-actions">
+        <button class="btn-ghost" id="confirmCancel">Cancel</button>
+        <button class="btn-danger" id="confirmOk">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DATA MGMT BAR -->
+<div class="data-bar" id="dataBar">
+  <span class="data-bar-label">Data</span>
+  <button class="btn-ghost small" id="resetSampleBtn">↺ Reset Sample Data</button>
+  <button class="btn-ghost small danger" id="clearAllBtn">✕ Clear All</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
